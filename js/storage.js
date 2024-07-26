@@ -1,12 +1,8 @@
+import { Todo } from './todo.js';
 export class Storage{
     static getTodos(){
         const todos = localStorage.getItem('todos');
-        return todos ? JSON.parse(todos, (key, value) =>{
-            if(key === ""){
-                return value;
-            } 
-            return new Todo(value.text, value.completed)
-        }): [];
+        return todos ? JSON.parse(todos).map(todo => Object.assign(new Todo(), todo)) : [];
     }
 
     static saveTodos(todos){
